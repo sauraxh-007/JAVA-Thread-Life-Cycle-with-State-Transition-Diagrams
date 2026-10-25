@@ -1,0 +1,21 @@
+public class ThreadDemo {
+    public static void main(String[] args) {
+        SharedResource resource = new SharedResource();
+
+        Thread t1 = new WorkerThread("Thread-1", resource);
+        Thread t2 = new WorkerThread("Thread-2", resource);
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            System.out.println("Main thread interrupted");
+        }
+
+        System.out.println("Final Count: " +
+            resource.getCount());
+    }
+}
